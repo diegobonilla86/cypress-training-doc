@@ -465,7 +465,7 @@ El flujo que debes testear es:
   - Digita un apellido
   - Digita un codigo postal
   - Realiza click en "Continue"
-- Seccion Payment:
+- Seccion Checkout:
   - Verifica el item agregado (nombre, precio)
   - Realiza click en "Finish"
 - Seccion Checkout complete:
