@@ -448,20 +448,32 @@ En esta sección debera realizar un flujo adicional que verifique las acciones r
 
 A continuación lea y entienda detenidamente los pasos para automatizar el flujo de compra.
 
-El flujo que debes continuar es:
+El flujo que debes testear es:
 
-- Seccion de Sign In: Click en boton de Sign In (8)
-- Seccion Address: Continuar el checkout (9)
-- Seccion Shipping:
-  - Aceptar terminos y condiciones (10)
-  - luego continuar el checkout (11)
+- Sección de Login:
+  - Visita el sitio web.
+  - Ingresa con credenciales validas.
+- Sección Products:
+  - Visualiza la lista de productos
+  - Selecciona un item para agregar al carrito
+  - Dirigite al carrito
+- Sección Shipping:
+  - Verifica el item agregado (nombre, precio)
+  - Realiza click en "checkout"
+- Sección Payment:
+  - Digita un nombre
+  - Digita un apellido
+  - Digita un codigo postal
+  - Realiza click en "Continue"
 - Seccion Payment:
-  - click en pay by bank wire (12)
-  - confirmar orden (13)
+  - Verifica el item agregado (nombre, precio)
+  - Realiza click en "Finish"
+- Seccion Checkout complete:
+  - Verifica el mensaje en pantalla
 
 > Usa como apoyo el siguiente material para conocer mas en detalle del flujo esperado. (extrae los CSS selector de la UI manualmente, termina la prueba y correla local).
 
-  ![Buy_flow](media/Buy_flow.gif)
+  ![Buy_flow](media/buy_flow.gif)
 
 8.1. Primero crear el archivo `buy-shirt.cy.ts` e incluir el siguiente codigo:
 
