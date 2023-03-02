@@ -444,7 +444,7 @@ En esta sección se configura la integración continua por medio de GitHub Actio
 
 En esta sección debera realizar un flujo adicional que verifique las acciones requeridas para comprar una camiseta en el sitio: <https://www.saucedemo.com/>.
 
-:scroll: Un poco de teoria: Para interactuar con los elementos del DOM se pueden usar varios mecanismos como CSS selectors, XPATH, jquery+CSS. Cada uno de estos tiene diferentes beneficios como su performance, legibilidad o la complejidad de la query del elemento con el cual queremos interactuar. Usualmente los CSS selector suelen ser mas rapidos y confiables en la mayoria de navegadores sin embargo lo XPATH permiten realizar busquedas de elementos mas complejas. Te recomendamos investigar las diferencias entre los tipos de selectores teniendo en cuenta factores como: manteniblidad, flexiblidad y velocidad de busqueda de un elemento.
+:scroll: Un poco de teoria: Para interactuar con los elementos del DOM se pueden usar varios mecanismos como CSS selectors, XPATH, jquery+CSS. Cada uno de estos tiene diferentes beneficios como su performance, legibilidad o la complejidad de la query del elemento con el cual queremos interactuar. Usualmente los CSS selector suelen ser mas rapidos y confiables en la mayoria de navegadores sin embargo los XPATH permiten realizar busquedas de elementos mas complejas. Te recomendamos investigar las diferencias entre los tipos de selectores teniendo en cuenta factores como: manteniblidad, flexiblidad y velocidad de busqueda de un elemento.
 
 A continuación lea y entienda detenidamente los pasos para automatizar el flujo de compra.
 
@@ -453,22 +453,22 @@ El flujo que debes testear es:
 - Sección de Login:
   - Visita el sitio web.
   - Ingresa con credenciales validas.
-- Sección Products:
+- Sección de Productos:
   - Visualiza la lista de productos
-  - Selecciona un item para agregar al carrito
-  - Dirigite al carrito
-- Sección Shipping:
-  - Verifica el item agregado (nombre, precio)
+  - Selecciona el item "Sauce Labs Bolt T-Shirt"
+- Sección de Producto
+  - Realiza click en "Add to cart"
+  - Dirígete al carrito, ubicado arriba a la derecha
+- Sección de Carrito:
   - Realiza click en "checkout"
-- Sección Payment:
-  - Digita un nombre
-  - Digita un apellido
-  - Digita un codigo postal
+- Sección de Información:
+  - Digita "Cypress" como nombre
+  - Digita "Workshop" como apellido
+  - Digita "00000" como codigo postal
   - Realiza click en "Continue"
-- Seccion Checkout:
-  - Verifica el item agregado (nombre, precio)
+- Seccion de Revisión:
   - Realiza click en "Finish"
-- Seccion Checkout complete:
+- Seccion Checkout Finalizado:
   - Verifica el mensaje en pantalla
 
 > Usa como apoyo el siguiente material para conocer mas en detalle del flujo esperado. (extrae los CSS selector de la UI manualmente, termina la prueba y correla local).
@@ -477,8 +477,23 @@ El flujo que debes testear es:
 
 8.1. Primero crear el archivo `buy-shirt.cy.ts` e incluir el siguiente codigo:
 
-  ![Buy_tshirt_flow](media/Buy_tshirt_flow.png)
+     ```js
+     describe("Buy a black t-shirt", () => {
+         it("then the t-shirt should be bought", () => {
+             cy.visit("https://www.saucedemo.com/");
+             cy.get(".login-box > form > div > input").first().type("standard_user");
+             cy.get(".login-box > form > div > input").last().type("secret_sauce");
+             cy.get("input[type='submit']").click();
 
+             // Debes completar la prueba ...
+
+             cy.get("#contents_wrapper > .checkout_complete_container > h2").should(
+                 "have.text",
+                 "Thank you for your order!"
+            );
+         });
+     });
+     ```
 
 8.2. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
