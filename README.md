@@ -451,49 +451,48 @@ A continuación lea y entienda detenidamente los pasos para automatizar el flujo
 El flujo que debes testear es:
 
 - Sección de Login:
-  - Visita el sitio web.
-  - Ingresa con credenciales validas.
+  - Visita el sitio web (1)
+  - Ingresa con credenciales validas (2)
 - Sección de Productos:
-  - Visualiza la lista de productos
-  - Selecciona el item "Sauce Labs Bolt T-Shirt"
+  - Selecciona el item "Sauce Labs Bolt T-Shirt" (3)
 - Sección de Producto
-  - Realiza click en "Add to cart"
-  - Dirígete al carrito, ubicado arriba a la derecha
+  - Realiza click en "Add to cart" (4)
+  - Dirígete al carrito, ubicado arriba a la derecha (5)
 - Sección de Carrito:
-  - Realiza click en "checkout"
+  - Realiza click en "checkout" (6)
 - Sección de Información:
-  - Digita "Cypress" como nombre
-  - Digita "Workshop" como apellido
-  - Digita "00000" como codigo postal
-  - Realiza click en "Continue"
+  - Digita "Cypress" como nombre (7)
+  - Digita "Workshop" como apellido (8)
+  - Digita "00000" como codigo postal (9)
+  - Realiza click en "Continue" (10)
 - Seccion de Revisión:
-  - Realiza click en "Finish"
+  - Realiza click en "Finish" (11)
 - Seccion Checkout Finalizado:
-  - Verifica el mensaje en pantalla
+  - Verifica el mensaje en pantalla (12)
 
-> Usa como apoyo el siguiente material para conocer mas en detalle del flujo esperado. (extrae los CSS selector de la UI manualmente, termina la prueba y correla local).
+> Usa como apoyo el siguiente material para conocer más en detalle del flujo esperado. (extrae los CSS selector de la UI manualmente, termina la prueba y correla local).
 
   ![Buy_flow](media/buy_flow.gif)
 
 8.1. Primero crear el archivo `buy-shirt.cy.ts` e incluir el siguiente codigo:
 
-     ```js
+```js
      describe("Buy a black t-shirt", () => {
          it("then the t-shirt should be bought", () => {
-             cy.visit("https://www.saucedemo.com/");
-             cy.get(".login-box > form > div > input").first().type("standard_user");
-             cy.get(".login-box > form > div > input").last().type("secret_sauce");
-             cy.get("input[type='submit']").click();
+             cy.visit("https://www.saucedemo.com/"); //(1)
+             cy.get(".login-box > form > div > input").first().type("standard_user"); //(2)
+             cy.get(".login-box > form > div > input").last().type("secret_sauce"); //(2)
+             cy.get("input[type='submit']").click(); //(2)
 
-             // Debes completar la prueba ...
+             // Debes completar la prueba con los puntos 3 al 11 del flujo 
 
              cy.get("#contents_wrapper > .checkout_complete_container > h2").should(
                  "have.text",
                  "Thank you for your order!"
-            );
+            ); //(12)
          });
      });
-     ```
+```
 
 8.2. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
