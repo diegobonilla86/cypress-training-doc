@@ -506,7 +506,7 @@ A continuación realizar la transformación a POM, por medio de los siguientes p
 
 9.1. Crear el archivo `cypress/page/login.page.ts` y agregar el siguiente código:
 
-```js
+   ```js
    class LoginPage {
      private loginURL: string;
      private userNameField: string;
@@ -532,7 +532,7 @@ A continuación realizar la transformación a POM, por medio de los siguientes p
    }
 
    export { LoginPage };
-```
+   ```
 
 9.2. Posteriormente crear el archivo `cypress/page/index.ts` para usar como archivo de salida de todos los page object:
 
