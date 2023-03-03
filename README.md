@@ -498,7 +498,6 @@ El flujo que debes testear es:
          });
      });
 ```
-  > <b>Nota:</b> Puedes apoyarte de
 
 8.2. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
