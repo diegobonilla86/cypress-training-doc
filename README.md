@@ -452,7 +452,7 @@ El flujo que debes testear es:
 
 - Sección de Login:
   - Visita el sitio web (1)
-  - Ingresa con credenciales validas (2)
+  - Ingresa con credenciales válidas (2)
 - Sección de Productos:
   - Selecciona el item "Sauce Labs Bolt T-Shirt" (3)
 - Sección de Producto
@@ -557,7 +557,7 @@ A continuación realizar la transformación a POM, por medio de los siguientes p
    });
    ```
 
-9.4. Posteriormente, crear el resto de page object y reemplazarlos en la prueba. Los nombres de los page object son: **products-list.page.ts**, **shoping-cart.page.ts**, **login.page.ts**, **address-step.page.ts**, **shipping-step.page.ts** y **payment-step.page.ts**
+9.4. Posteriormente, crear el resto de page object y reemplazarlos en la prueba. Los nombres de los page object son: **products-list.page.ts**, **item.page.ts**, **shopping-cart.page.ts**, **information.page.ts**, **overview.page.ts** y **checkout-complete.page.ts**
 
    > <b><u>Tip:</u></b> Agrega los page object al archivo "page/index.ts" para facilitar el import de cada page object en las pruebas.
 
