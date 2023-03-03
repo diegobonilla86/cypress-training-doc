@@ -452,7 +452,7 @@ El flujo que debes testear es:
 
 - Sección de Login:
   - Visita el sitio web (1)
-  - Ingresa con credenciales validas (2)
+  - Ingresa con credenciales válidas (2)
 - Sección de Productos:
   - Selecciona el item "Sauce Labs Bolt T-Shirt" (3)
 - Sección de Producto
@@ -480,8 +480,8 @@ El flujo que debes testear es:
      describe("Buy a black t-shirt", () => {
          it("then the t-shirt should be bought", () => {
              cy.visit("https://www.saucedemo.com/"); //(1)
-             cy.get(".login-box > form > div > input").first().type("standard_user"); //(2)
-             cy.get(".login-box > form > div > input").last().type("secret_sauce"); //(2)
+             cy.get(".login-box > form > div > input#user-name").type("standard_user"); //(2)
+             cy.get(".login-box > form > div > input#password").type("secret_sauce"); //(2)
              cy.get("input[type='submit']").click(); //(2)
 
              // Debes completar la prueba con los puntos 3 al 11 del flujo 
@@ -500,62 +500,70 @@ El flujo que debes testear es:
 ***
 # 9 Page Object Model (POM)
 
-Page Object Model es un patron para mejorar la mantenibilidad de las pruebas ya que podemos establecer una capa intermedia entre las pruebas y UI de la aplicación, ya que los cambios que requieran las pruebas debido a cambios en la aplicación se pueden realizar rapidamente en el POM. Te recomendamos investigar el patrón y otros patrones utiles que puedan ser usados para el código de pruebas.
+Page Object Model es un patron para mejorar la mantenibilidad de las pruebas ya que podemos establecer una capa intermedia entre las pruebas y UI de la aplicación, ya que los cambios que requieran las pruebas debido a cambios en la aplicación se pueden realizar rapidamente en el POM. Te recomendamos investigar el patrón y otros patrones útiles que puedan ser usados para el código de pruebas.
 
 A continuación realizar la transformación a POM, por medio de los siguientes pasos:
 
-9.1. Crear el archivo `cypress/page/menu-content.page.ts` y agregar el siguiente código:
+9.1. Crear el archivo `cypress/page/login.page.ts` y agregar el siguiente código:
 
-   ```javascript
-   class SauceContentHomePage {
-       private tShirtMenu: string;
+   ```js
+   class LoginPage {
+     private loginURL: string;
+     private userNameField: string;
+     private passwordField: string;
+     private loginButton: string;
 
-       constructor() {
-           this.tShirtMenu = "#block_top_menu > ul > li:nth-child(3) > a";
-           this.menuContentPageURL = "http://automationpractice.com/"
-       }
+     constructor() {
+       this.loginURL = "http://saucedemo.com/";
+       this.userNameField = ".login-box > form > div > input#user-name";
+       this.passwordField = ".login-box > form > div > input#password";
+       this.loginButton = "input[type='submit']";
+     }
 
-       public visitMenuContentPage(): void {
-           cy.visit(this.menuContentPageURL)
-       }
+     public visitLoginPage(): void {
+       cy.visit(this.loginURL);
+     }
 
+     public signIn(): void {
+       cy.get(this.userNameField).type("standard_user");
+       cy.get(this.passwordField).type("secret_sauce");
+       cy.get(this.loginButton).click();
+     }
    }
 
-   export { MenuContentPage }
+   export { LoginPage };
    ```
 
 9.2. Posteriormente crear el archivo `cypress/page/index.ts` para usar como archivo de salida de todos los page object:
 
-   ```javascript
-   export { MenuContentPage } from "./menu-content.page";
+   ```js
+   export { LoginPage } from "./login.page";
    ```
 
-9.3. Luego modificar el archivo `buy-tshirt.cy.ts` para utilizar el POM que acabamos de crear en la prueba:
+9.3. Luego modificar el archivo `buy-shirt.cy.ts` para utilizar el POM que acabamos de crear en la prueba:
 
-   ```javascript
-   import { MenuContentPage } from "../page/index";
+   ```js
+   import { LoginPage } from "../pages/index";
 
-   const menuContentPage = new MenuContentPage();
+   const loginPage = new LoginPage();
 
-   describe("Buy a t-shirt", () => {
-     it("then should be bought a t-shirt", () => {
-       menuContentPage.visitMenuContentPage();
-       menuContentPage.goToTShirtMenu();
-       cy.get("[style*=' display: block;'] .button-container > a").click();
-       cy.get(".cart_navigation span").click();
+   describe("Buy a black t-shirt", () => {
+     it("then the t-shirt should be bought", () => {
+       loginPage.visitLoginPage();
+       loginPage.signIn();
 
        // El resto del flujo de la prueba....
      });
    });
    ```
 
-9.4. Posteriormente, crear el resto de page object y reemplazarlos en la prueba. Los nombres de los page object son: **products-list.page.ts**, **shoping-cart.page.ts**, **login.page.ts**, **address-step.page.ts**, **shipping-step.page.ts** y **payment-step.page.ts**
+9.4. Posteriormente, crear el resto de page object y reemplazarlos en la prueba. Los nombres de los page object son: **products-list.page.ts**, **item.page.ts**, **shopping-cart.page.ts**, **information.page.ts**, **overview.page.ts** y **checkout-complete.page.ts**
 
    > <b><u>Tip:</u></b> Agrega los page object al archivo "page/index.ts" para facilitar el import de cada page object en las pruebas.
 
 9.5. Ejecute las pruebas y verifica que pasen. Si alguna falla modificala usando los CSS locators y el tiempo de espera configurado hasta que pasen.
 
-9.6. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+9.6. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
 ***
