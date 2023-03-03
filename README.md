@@ -75,7 +75,7 @@ Ten en cuenta tener estudiados ciertos conceptos importantes (te dejamos unos en
 2.1. Instalar la versión `v16.X.0` (o superiores) de Node.js.
 
    **Notas:**
-   - Recomendamos usar [npm](https://github.com/nvm-sh/nvm) como manejador de versiones.
+   - Recomendamos usar [nvm](https://github.com/nvm-sh/nvm) como manejador de versiones, pero si prefiere usar `npm` lo puede utilizar.
    - Necesariamente no tienes que instalar la version 16, pero si recomendamos instalar una version LTS, hemos probado este workshop con las versiones `v14.X.0` ó `v16.X.0`.
 
 2.2. Crear una nueva rama local ejecutando por consola `git checkout -b setup`.
