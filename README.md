@@ -179,6 +179,7 @@ Ten en cuenta tener estudiados ciertos conceptos importantes (te dejamos unos en
 
 > <b><u>Nota:</u></b> Recuerda que de aqui en adelante todo cambio/mejora (o punto por iniciar) que realices debera tener una rama propia.
 
+
 # 4. Creando la primera prueba
 
 Una vez hemos ejecutado las pruebas de ejemplo, eliminamos las carpetas que contienen ejemplos: `cypress/e2e/1-getting-started` y `cypress/e2e/2-advanced-examples`.
@@ -206,7 +207,7 @@ Agrega la siguiente linea en el archivo: `cypress.json`/`cypress.config.js`
 
    ![google spec result browser](media/google-spec-result.png)
 
-4.3. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+4.3. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
 # 5. Configurando las pruebas con TypeScript
@@ -252,6 +253,8 @@ Agrega la siguiente linea en el archivo: `cypress.json`/`cypress.config.js`
    });
    ```
 
+> Te recomendamos visitar este enlace donde conoceras mas sobre como configurar el file: [Configuration File - Cypress](https://docs.cypress.io/guides/references/configuration)
+
 5.4. Cambiar la extensión de nuestros archivos ubicados en la carpeta `support` por:
    - `commands.js` -> `commands.ts`
    - `e2e.js` -> `e2e.ts`
@@ -262,7 +265,7 @@ Agrega la siguiente linea en el archivo: `cypress.json`/`cypress.config.js`
    npm run test:open
    ```
 
-5.6. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+5.6. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
 # 6. Análisis de código estatico
@@ -359,7 +362,7 @@ Agrega la siguiente linea en el archivo: `cypress.json`/`cypress.config.js`
 
    > **Nota:** En caso de tener errores, algunos de ellos son posible arreglarlos autoáticamente añadiendo el argumento --fix, es decir, usamos `npm run lint -- --fix`.
 
-6.6. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+6.6. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
 # 7. Configurar Integracion Continua (CI)
@@ -436,10 +439,9 @@ En esta sección se configura la integración continua por medio de GitHub Actio
      // Codigo existente no modificar
    ```
 
-7.5. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+7.5. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
-***
 # 8 Selectores CSS
 
 En esta sección debera realizar un flujo adicional que verifique las acciones requeridas para comprar una camiseta en el sitio: <https://www.saucedemo.com/>.
@@ -474,7 +476,10 @@ El flujo que debes testear es:
 
   ![Buy_flow](media/buy_flow.gif)
 
-8.1. Primero crear el archivo `buy-shirt.cy.ts` e incluir el siguiente codigo:
+  > Visita este video: [Iniciando a automatizar con Cypress](https://www.youtube.com/watch?v=z6ZK_FC2lkE), donde aprenderas como obtener los elementos web desde Cypress. </br>
+  Este enlace para aprender mas sobre: [Selectores CSS](https://www.w3.org/wiki/CSS_/_Selectores_CSS).
+
+8.1. Como Primer paso debe crear el archivo `buy-shirt.cy.ts` e incluir el siguiente codigo (recuerda completarlo segun el flujo requerido):
 
 ```js
      describe("Buy a black t-shirt", () => {
@@ -484,7 +489,7 @@ El flujo que debes testear es:
              cy.get(".login-box > form > div > input#password").type("secret_sauce"); //(2)
              cy.get("input[type='submit']").click(); //(2)
 
-             // Debes completar la prueba con los puntos 3 al 11 del flujo 
+             // Debes completar la prueba con los puntos 3 al 11 del flujo
 
              cy.get("#contents_wrapper > .checkout_complete_container > h2").should(
                  "have.text",
@@ -494,10 +499,9 @@ El flujo que debes testear es:
      });
 ```
 
-8.2. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+8.2. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
-***
 # 9 Page Object Model (POM)
 
 Page Object Model es un patron para mejorar la mantenibilidad de las pruebas ya que podemos establecer una capa intermedia entre las pruebas y UI de la aplicación, ya que los cambios que requieran las pruebas debido a cambios en la aplicación se pueden realizar rapidamente en el POM. Te recomendamos investigar el patrón y otros patrones útiles que puedan ser usados para el código de pruebas.
@@ -566,19 +570,35 @@ A continuación realizar la transformación a POM, por medio de los siguientes p
 9.6. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
-***
 # 10. Mejorando los selectores
 
-En esta sección presentaras una propuesta para los selectores que se estan usando para la pruebas:
+En esta sección deberas personalizar los selectores que se estan usando para la prueba:
 
-10.1. Realice su propia propuesta de los selectores de cada page object.
-10.2. Verificar que las pruebas pasen
+  > Puedes apoyarte en estos recursos para entender un poco mas sobre selectores. </br>
+  1- [Cypress Locator: How to locate web elements in Cypress](https://www.youtube.com/watch?v=h8zbcupvx6Y) </br>
+  2- [Locators in Cypress](https://www.youtube.com/watch?v=w56cKguv3qo)</br>
+  3- [Best practices Selecting Elements](https://docs.cypress.io/guides/references/best-practices#Selecting-Elements)
 
-10.3. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+10.1. Ejemplo:
 
-  > <b><u>Nota:</u></b> El revisor comentará los selectores con los que no esta de acuerdo, en ese caso, justifique su propesta de selector. (No use **XPATH**)
+  - Antes
+  ```js
+       this.element1 = "'input[id="firstName"]'";
+       this.element2 = ".sf-menu > li:nth-child(3)";
+       this.element3 = "input[type='submit']";
+   ```
 
-***
+  - Despues
+```js
+       this.element1 = ".firstName";
+       this.element2 = "#sf-menu li";
+       this.element3 = "#submit";
+   ```
+
+  > <b><u>Nota:</u></b> El revisor comentará los selectores con los que puede no esta de acuerdo, en ese caso, justifique su propesta de selector. (No use **XPATH**)
+
+10.2. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+
 
 # 11. AAA pattern
 
@@ -652,7 +672,7 @@ Vamos a agregar una nueva prueba y la estructuramos usando el patrón AAA:
 
 11.4. Actualiza la prueba de comprar tshirt en el archivo `buy-tshirt.cy.ts` para que siga el patrón AAA.
 
-11.5. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+11.5. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 > **tip:** Recuerda aplicar los Page Object al construir la prueba. Probablemente requieras agregar un metodo al `MenuContentPage`. <br/> **Nota:** Investiga como funciona los métodos **validate** en el archivo `dresses-list.page.ts`.
 
@@ -669,7 +689,7 @@ En algunos escenarios debemos trabajar con lista de elementos, realizar busqueda
 
 12.4. Ejecuta las pruebas y verifica que pasen :heavy_check_mark:
 
-12.5. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+12.5. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
 # 13. Mejorando los reportes - Mochawesome
@@ -721,7 +741,7 @@ Algunas veces es bueno mejorar el reporte visual de la ejecución de nuestras pr
    - **pre:** Limpiar el la carpeta de reportes
    - **post:** ejecutar los scripts para procesar el reporte generado por la ejecución de pruebas.
 
-13.6. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+13.6. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
 # 14. Filling form
@@ -769,7 +789,7 @@ Usualmente en las aplicaciones nos encontramos formularios que los usuarios debe
    - **mini-challenge:** Agregue la interacción con el campo de State y City.
    - **Challenge:** En el modal, verifique que se muestra correctamente, la informacion que ingresó al enviar el formulario.
 
-14.4. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+14.4. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
 # 15. Subiendo un archivo
@@ -788,7 +808,7 @@ Usualmente nos podemos encontrar con la necesidad de subir archivos por medio de
 
    **tip:** El patrón AAA es solo para ayudarnos a tener mas orden al diseñar y contruir nuestras pruebas.
 
-15.4. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+15.4. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
 # 16. Descargando un archivo
@@ -805,7 +825,7 @@ Para esta sección descargaremos un archivo y verificaremos el contenido, realiz
 
 16.3. Verifica que todas las pruebas pasen, además incluye los archivos que no se deben subir al `.gitignore`.
 
-16.4. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+16.4. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
 # 17. Interactuando con IFrames
@@ -838,7 +858,7 @@ Los iframes son elementos HTML que nos podemos encontrar comunmente en aplicacio
 
    **Challenge:** algunas pruebas pueden ser inestables por diferentes factores como latencias. Implementa una estrategia de retrys si encuentras alguna inestabilidad!
 
-17.4. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas estan pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
+17.4. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
 
 # Conclusión
