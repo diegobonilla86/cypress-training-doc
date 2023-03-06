@@ -613,6 +613,8 @@ Como parte de las buenas practicas para diseñar pruebas encontramos el patrón 
 - **Action**: Es la acción del usuario que realmente vamos a probar, Ej: llenar formularios, navegar a otra pagina, hacer clicks.
 - **Assert**: Verificamos los comportamientos esperados. Ej: Se muestre cierta información, guardado de datos, actualización de datos, mensajes de error, etc...
 
+> Visita tambien para conocer un poco sobre: [AAA - CodeLapps](http://codelapps.com/code/anatomia-de-una-prueba-unitaria/)
+
 De esta manera debe reordenar la estructura de su test teniendo como referencia el patrón AAA:
 
 11.1. Primero verifique que cuenta con las clases para cada page usando Page Object (recuerde que al crear un `nombre/pagina.page.ts` que contenga los selectores, debe ser agregado al `index.ts`).
