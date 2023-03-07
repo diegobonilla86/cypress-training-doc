@@ -635,7 +635,7 @@ De esta manera debe reordenar la estructura de su test teniendo como referencia 
         this.priceItem = ":nth-child(1) > .inventory_item_description > .pricebar > .inventory_item_price";
     }
 
-    public goToShoppingCar():void{
+    public goToShoppingCart():void{
         cy.get(this.shoppingBtn).click();
     }
 
