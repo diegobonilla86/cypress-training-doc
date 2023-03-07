@@ -628,15 +628,15 @@ De esta manera debe reordenar la estructura de su test teniendo como referencia 
     private priceItem: string;
 
     constructor() {
-        this.shoppingbtn = ".shopping_cart_link";
-        this.containeritems = ":nth-child(2) > :nth-child(1) > #inventory_container";
+        this.shoppingBtn = ".shopping_cart_link";
+        this.containerItems = ":nth-child(2) > :nth-child(1) > #inventory_container";
         this.itemBackpack_AddBtn = "[data-test=\"add-to-cart-sauce-labs-backpack\"]";
         this.titleItem = "#item_4_title_link > .inventory_item_name";
         this.priceItem = ":nth-child(1) > .inventory_item_description > .pricebar > .inventory_item_price";
     }
 
-    public goToShoppingcar():void{
-        cy.get(this.shoppingbtn).click();
+    public goToShoppingCar():void{
+        cy.get(this.shoppingBtn).click();
     }
 
     public AddItem():void{
@@ -652,7 +652,7 @@ De esta manera debe reordenar la estructura de su test teniendo como referencia 
     }
 
     public DisplayContainer(): void {
-        cy.get(this.containeritems).should('be.visible');
+        cy.get(this.containerItems).should('be.visible');
     }
    }
    export { ProductsContentPage }
