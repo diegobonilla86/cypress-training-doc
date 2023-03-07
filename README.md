@@ -623,7 +623,7 @@ De esta manera debe reordenar la estructura de su test teniendo como referencia 
    class ProductsContentPage {
     private shoppingBtn: string
     private containerItems: string;
-    private itemBackpack_AddBtn: string;
+    private itemBackPack_AddBtn: string;
     private titleItem: string;
     private priceItem: string;
 
