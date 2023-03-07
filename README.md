@@ -619,7 +619,7 @@ De esta manera debe reordenar la estructura de su test teniendo como referencia 
 
 11.1. Primero verifique que cuenta con las clases para cada page usando Page Object (recuerde que al crear un `nombre/pagina.page.ts` que contenga los selectores, debe ser agregado al `index.ts`).
 
-  > nota: Esto selectores no estan optimizados esta tarea debe realizarlo en el apartado anterior.
+  > <b><u>nota:</u></b> Estos selectores no estan optimizados esta tarea debe realizarlo en el apartado anterior.
 
    ```js
    class ProductsContentPage {
