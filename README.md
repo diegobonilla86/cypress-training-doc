@@ -621,8 +621,8 @@ De esta manera debe reordenar la estructura de su test teniendo como referencia 
 
    ```js
    class ProductsContentPage {
-    private shoppingbtn: string
-    private containeritems: string;
+    private shoppingBtn: string
+    private containerItems: string;
     private itemBackpack_AddBtn: string;
     private titleItem: string;
     private priceItem: string;
