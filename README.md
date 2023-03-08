@@ -75,8 +75,8 @@ Ten en cuenta tener estudiados ciertos conceptos importantes (te dejamos unos en
 2.1. Instalar la versión `v16.X.0` (o superiores) de Node.js.
 
    **Notas:**
-   - Recomendamos usar [nvm](https://github.com/nvm-sh/nvm) como manejador de versiones.
-   - Necesariamente no tienes que instalar la version 16, pero si recomendamos instalar una version LTS, hemos probado este workshop con las versiones `v14.X.0` ó `v16.X.0`.
+   - Recomendamos usar [nvm](https://github.com/nvm-sh/nvm) como manejador de versiones (Opcional).
+   - Necesariamente no tienes que instalar la version 16 de NodeJS, pero si recomendamos instalar una version LTS, hemos probado este workshop con las versiones `v14.X.0` ó `v16.X.0`.
 
 2.2. Crear una nueva rama local ejecutando por consola `git checkout -b setup`.
 
@@ -195,14 +195,6 @@ Una vez hemos ejecutado las pruebas de ejemplo, eliminamos las carpetas que cont
    });
    ```
 
- <b><u>Nota:</u></b> Si tienes problemas con la ejecucion de las pruebas en esta pagina, te sale un mensaje de error de tipo "SecurityError: Blocked a frame with origin..."
-
-Agrega la siguiente linea en el archivo: `cypress.json`/`cypress.config.js`
-
-   ```js
-   chromeWebSecurity = false;
-   ```
-
 4.2. Ejecutar el comando `npm run test:open` para correr la prueba (deberas seleccionar la opcion "E2E Testing" y despues seleccionar nuevamente el navegador chrome y presionar el boton "Start E2E Testing in Chrome"). Una vez finalice y si todo está bien veremos que la prueba paso satisfactoriamente:
 
    ![google spec result browser](media/google-spec-result.png)
@@ -234,26 +226,25 @@ Agrega la siguiente linea en el archivo: `cypress.json`/`cypress.config.js`
    }
    ```
 
-5.3. Cambiar el nombre y la extensión de nuestro archivo de configuracion `cypress.json`/`cypress.config.js` por `cypress.config.ts` y reemplace el codigo existente por este:
+5.3. Cambiar el nombre y la extensión de nuestro archivo de configuracion `cypress.config.js` por `cypress.config.ts`.
 
-   ```js
+  <b><u>Nota:</u></b> Si presenta problemas con la ejecucion de alguna prueba, te aparece un mensaje de error tipo "SecurityError: Blocked a frame with origin...", y reemplace el codigo existente por este:
+
+```js
    import { defineConfig } from "cypress";
 
    export default defineConfig({
-     // setupNodeEvents can be defined in either
-     // the e2e or component configuration
      e2e: {
+      chromeWebSecurity: false,
       setupNodeEvents(on, config) {
-        // modify config values examples
-        // config.defaultCommandTimeout = 10000
-        // IMPORTANT return the updated config object
+        // e2e testing node events setup code
         return config;
        },
      },
    });
    ```
 
-> Te recomendamos visitar este enlace donde conoceras mas sobre como configurar el file: [Configuration File - Cypress](https://docs.cypress.io/guides/references/configuration)
+  > Te recomendamos visitar este enlace donde conoceras mas sobre como configurar el file: [Configuration File - Cypress](https://docs.cypress.io/guides/references/configuration)
 
 5.4. Cambiar la extensión de nuestros archivos ubicados en la carpeta `support` por:
    - `commands.js` -> `commands.ts`
@@ -274,7 +265,7 @@ Agrega la siguiente linea en el archivo: `cypress.json`/`cypress.config.js`
 
    ```bash
    npm install eslint --save-dev
-   npx eslint --init
+   npx eslint --init  // (en caso de error utilizar: npm init @slint/config)
    ```
 
    <details>
@@ -323,25 +314,35 @@ Agrega la siguiente linea en el archivo: `cypress.json`/`cypress.config.js`
    npm install eslint-plugin-cypress --save-dev
    ```
 
-6.3. Luego agregar el plugin de cypress y las reglas en el archivo eslintrc.js
+6.3. Luego agregar el plugin de cypress y las reglas en el archivo eslintrc.js verifique tener esta estructura:
 
    ```javascript
-   ...
-       "plugins": [
-         "@typescript-eslint",
-         "cypress"
-       ],
-       "rules": {
-         "quotes": ["error", "double"],
-         "cypress/no-assigning-return-values": "error",
-         "cypress/no-unnecessary-waiting": "error",
-         "cypress/assertion-before-screenshot": "warn",
-         "cypress/no-force": "warn",
-         "no-unused-vars": "warn",
-         "require-jsdoc": "warn",
-         "max-len": [ "error", { "code": 120 } ]
-       },
-   ...
+   module.exports = {
+      "env": {
+          "browser": true,
+          "es2021": true
+      },
+      "overrides": [
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+          "ecmaVersion": "latest"
+      },
+      "plugins": [
+          "@typescript-eslint",
+          "cypress"
+      ],
+      "rules": {
+          "quotes": ["error", "double"],
+          "cypress/no-assigning-return-values": "error",
+          "cypress/no-unnecessary-waiting": "error",
+          "cypress/assertion-before-screenshot": "warn",
+          "cypress/no-force": "warn",
+          "no-unused-vars": "warn",
+          "require-jsdoc": "warn",
+          "max-len": [ "error", { "code": 120 } ]
+      }
+   }
    ```
 
 6.4. Posteriormente modificamos el script test:open en el "package.json" para ejecutar la verificación de código estático antes de correr las pruebas:
@@ -424,7 +425,7 @@ En esta sección se configura la integración continua por medio de GitHub Actio
 
 7.3. Crea el archivo `.nvmrc` y especifica la version de Node.js que deseas usar para la ejecución.
 
-7.4. Debido a que cypress por default graba videos de la ejecución de las pruebas es util desactivar esta funcionalidad para disminuir el tiempo de ejecución y el uso de recursos en el servidor del CI. Adicionalmente, desactivaremos temporalmente las capturas de pantalla debido a un [error](https://github.com/cypress-io/cypress/issues/5016) que aun no ha sido solucionado en las versiones recientes de cypress. Para esto se debe ingresar la siguiente configuración en el archivo `cypress.config.ts`
+7.4. Debido a que cypress por default graba videos de la ejecución de las pruebas es util desactivar esta funcionalidad para disminuir el tiempo de ejecución y el uso de recursos en el servidor del CI. Adicionalmente, configuraremos algunos parametros para tiempos de espera y desactivaremos temporalmente las capturas de pantalla debido a un [error](https://github.com/cypress-io/cypress/issues/5016) que aun no ha sido solucionado en las versiones recientes de cypress. Para esto se debe ingresar la siguiente configuración en el archivo `cypress.config.ts`
 
    ```js
    // Codigo existente no modificar
@@ -434,6 +435,10 @@ En esta sección se configura la integración continua por medio de GitHub Actio
      screenshotOnRunFailure: false,
      chromeWebSecurity: false,
      setupNodeEvents(on, config) {
+          // e2e testing node events setup code
+          config.defaultCommandTimeout= 10000;
+          config.responseTimeout= 20000;
+          config.pageLoadTimeout= 60000;
       return config;
     }
      // Codigo existente no modificar
@@ -589,7 +594,7 @@ En esta sección deberas personalizar los selectores que se estan usando para la
    ```
 
   - Despues
-```js
+  ```js
        this.element1 = ".firstName";
        this.element2 = "#sf-menu li";
        this.element3 = "#submit";
@@ -602,79 +607,90 @@ En esta sección deberas personalizar los selectores que se estan usando para la
 
 # 11. AAA pattern
 
-Un patrón común para escribir pruebas es el patrón AAA que nos ayuda a definir una estructura ordenada de cada prueba, por medio de 3 pasos:
+Como parte de las buenas practicas para diseñar pruebas encontramos el patrón AAA que nos ayuda a definir una estructura ordenada para cada prueba, por medio de 3 pasos:
 
 - **Arrange**: Preparar las condiciones necesarias para ejecutar la prueba, ej: Datos de la prueba, carga de pagina donde se ejecuta la prueba.
 - **Action**: Es la acción del usuario que realmente vamos a probar, Ej: llenar formularios, navegar a otra pagina, hacer clicks.
 - **Assert**: Verificamos los comportamientos esperados. Ej: Se muestre cierta información, guardado de datos, actualización de datos, mensajes de error, etc...
 
-Vamos a agregar una nueva prueba y la estructuramos usando el patrón AAA:
+> Visita tambien para conocer un poco sobre: [AAA - CodeLapps](http://codelapps.com/code/anatomia-de-una-prueba-unitaria/)
 
-`Escenario:` Verificar que al navegar a la pagina de vestidos se muestren los vestidos disponibles y sus nombres.
+De esta manera debe reordenar la estructura de su test teniendo como referencia el patrón AAA:
 
-11.1. Primero agregamos el archivo del Page Object para la pagina de vestidos `dresses-list.page.ts`, recuerda agregarlo al `index.ts` de la carpeta `/page`:
+11.1. Primero verifique que cuenta con las clases para cada page usando Page Object (recuerde que al crear un `nombre/pagina.page.ts` que contenga los selectores, debe ser agregado al `index.ts`).
 
-   ```javascript
-   class DressesListPage {
+  > <b><u>nota:</u></b> Estos selectores no estan optimizados esta tarea debe realizarlo en el apartado anterior.
 
-     private dressItem: string;
-     private dressName: string;
+   ```js
+   class ProductsContentPage {
+    private shoppingBtn: string
+    private containerItems: string;
+    private itemBackPack_AddBtn: string;
+    private titleItem: string;
+    private priceItem: string;
 
-     constructor(){
-       this.dressItem = ".product-container"
-       this.dressName = `${this.dressItem} .product-name`
-     }
+    constructor() {
+        this.shoppingBtn = ".shopping_cart_link";
+        this.containerItems = ":nth-child(2) > :nth-child(1) > #inventory_container";
+        this.itemBackPack_AddBtn = "[data-test=\"add-to-cart-sauce-labs-backpack\"]";
+        this.titleItem = "#item_4_title_link > .inventory_item_name";
+        this.priceItem = ":nth-child(1) > .inventory_item_description > .pricebar > .inventory_item_price";
+    }
 
-     getDressProducts(){
-       return cy.get(this.dressItem)
-     }
+    public goToShoppingCart():void{
+        cy.get(this.shoppingBtn).click();
+    }
 
-     validateItemsNumber(itemsNumber: number){
-       cy.get(this.dressItem).should("have.length", itemsNumber)
-     }
+    public AddItem():void{
+        cy.get(this.itemBackPack_AddBtn).click();
+    }
 
-     validateItemsNames(names: string[]){
-       cy.get(this.dressName).each((item, index) => {
-         cy.wrap(item).should("contain.text", names[index])
-       })
-     }
+    public verifyTitle(messages:string): void {
+        cy.get(this.titleItem).should("have.text", messages);
+    }
 
+    public verifyPrice(messages:string): void {
+        cy.get(this.priceItem).should("have.text", messages);
+    }
+
+    public DisplayContainer(): void {
+        cy.get(this.containerItems).should('be.visible');
+    }
    }
-
-   export {DressesListPage}
+   export { ProductsContentPage }
    ```
 
-11.2. Creamos el archivo `cypress/e2e/dresses-list.cy.ts` para realizar la prueba de la lista de vestidos.
+11.2. A continuación deberá estructura su archivo de ejecución principal, puedes basarte en este ejemplo.
+Ejemplo de diseño AAA:
 
-   ```javascript
-   import { MenuContentPage, DressesListPage } from "../page/index";
+   ```js
+   it("Login in sauce Page with Empty fields", () =>{
+        //Arrange
+        homeContentPage.visitHomeContentPage();
+        //Action
+        homeContentPage.goToLoginButton();
+        //Assertion
+        homeContentPage.verifyErrorMessage("Epic sadface: Username is required");
+    });
 
-   describe("the user navigates to the dresses page should", () => {
-     let menuContentPage: MenuContentPage;
-     let dressesListPage: DressesListPage;
-
-     before(() => {
-       menuContentPage = new MenuContentPage();
-       dressesListPage = new DressesListPage();
-     });
-
-     it("show the available dresses", () => {
-       // ... realiza la prueba
-     });
-   });
+    it("Login in sauce Page with Valid credentials", () =>{
+        //Arrange
+        homeContentPage.visitHomeContentPage();
+        homeContentPage.typeUsername("standard_user");
+        homeContentPage.typePassword("secret_sauce");
+        homeContentPage.goToLoginButton();
+        //Action
+        productpage.DisplayContainer();
+        productpage.AddItem();
+        //Assertion
+        productpage.verifyTitle("Sauce Labs Backpack");
+        productpage.verifyPrice("$29.99");
+    });
    ```
 
-11.3. Crea la prueba teniendo en cuenta el patrón AAA:
+11.3. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
 
-   - **Arrange:** Crea un arreglo con los nombre esperados de cada vestido y visita la página del menu principal.
-   - **Act:** Navega al menu de vestidos donde se carga la lista de vestidos diponibles.
-   - **Assert:** Verifica que se visualicen 5 vestidos y que tengan los nombres esperados (el orden es importante).
-
-11.4. Actualiza la prueba de comprar tshirt en el archivo `buy-tshirt.cy.ts` para que siga el patrón AAA.
-
-11.5. Crear un pull request (PR), asignarle los revisores y esperar la aprobación o comentarios de mejora (incluya una captura de pantalla donde se evidencie que las pruebas están pasando). No olvide actualizar su rama `main` una vez el PR ha sido aprobado y se haya hecho el proceso de Squash and Merge.
-
-> **tip:** Recuerda aplicar los Page Object al construir la prueba. Probablemente requieras agregar un metodo al `MenuContentPage`. <br/> **Nota:** Investiga como funciona los métodos **validate** en el archivo `dresses-list.page.ts`.
+> **tip:** Recuerda aplicar los Page Object al construir la prueba. Probablemente requieras agregar metodos adicionales.
 
 
 # 12. Listas de elementos, filtros y elementos dentro de elementos
